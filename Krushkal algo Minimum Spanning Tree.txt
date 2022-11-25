@@ -1,0 +1,51 @@
+#include<bits/stdc++.h>
+bool cmp(vector<int> &a,vector<int> &b){
+    //sorting according to weight in ascending order
+    return a[2]<b[2];
+}
+
+void initialize(vector<int>&rank,vector<int>&parent,int n){
+    for(int i=0;i<n;i++){
+        rank[i]=0;
+        parent[i]=i;
+    }
+}
+int findparent(int node,vector<int>&parent){
+    if(parent[node]==node)
+        return node;
+    
+    return parent[node]=findparent(parent[node],parent);
+}
+
+void unionop(vector<int>&rank,vector<int>&parent,int u,int v){
+    
+    if(rank[u]>rank[v]){
+        parent[v]=u;
+    }else if(rank[v]>rank[u]){
+        parent[u]=v;
+    }else{
+        parent[u]=v;
+        rank[v]++;
+    }
+}
+
+int minimumSpanningTree(vector<vector<int>>& edges, int n)
+{   
+    sort(edges.begin(),edges.end(),cmp);
+    //Step 1: Create a rank vector and initialize it with 0;
+    vector<int>rank(n);
+    vector<int>parent(n);
+    initialize(rank,parent,n);
+        int ans=0;
+    for(int i=0;i<edges.size();i++){
+        int u=findparent(edges[i][0],parent);
+        int v=findparent(edges[i][1],parent);
+        int wt=edges[i][2];
+
+    if(u!=v){
+        ans+=wt;
+    unionop(rank,parent,u,v);
+    }
+    }
+    return ans;
+}
