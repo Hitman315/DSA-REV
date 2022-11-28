@@ -1,0 +1,31 @@
+// User function template for C++
+
+class Solution {
+  public:
+    static bool cmp(pair<int,int>&a,pair<int,int>&b){
+        if(a.second==b.second){
+            return a.first>b.first;
+        }
+        return a.second<b.second;
+    }
+    vector<int> printKClosest(vector<int> arr, int n, int k, int x) {
+        // code here
+        vector<pair<int,int>>ans;
+        for(int i=0;i<arr.size();i++){
+            pair<int,int>p=make_pair(arr[i],abs(x-arr[i]));
+            ans.push_back(p);
+        }
+        sort(ans.begin(),ans.end(),cmp);
+        vector<int>a;
+        int count=0;
+        for(int i=0;i<n;i++){
+            if(ans[i].second!=0){
+                a.push_back(ans[i].first);
+                count++;
+                if(count==k)
+                break;
+            }
+        }
+        return a;
+    }
+};
