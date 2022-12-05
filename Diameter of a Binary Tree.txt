@@ -1,0 +1,38 @@
+ Tree node structure  used in the program
+
+struct Node
+{
+    int data;
+    struct Node left;
+    struct Node right;
+
+    Node(int x){
+        data = x;
+        left = right = NULL;
+    }
+}; 
+
+class Solution {
+  public
+ pairint,int diameterfast(Node root){
+     if(root==NULL){
+         pairint,int p=make_pair(0,0);
+         return p;
+     }
+     pairint,int left=diameterfast(root-left);
+     pairint,int right=diameterfast(root-right);
+     
+     int op1=left.first;
+     int op2=right.first;
+     int op3=left.second+right.second+1;
+     pairint,intans;
+     ans.first=max({op1,op2,op3});
+     ans.second=max(left.second,right.second)+1;
+     return ans;
+ }
+     Function to return the diameter of a Binary Tree.
+    int diameter(Node node) {
+         Your code here
+        return diameterfast(node).first;
+    }
+};
